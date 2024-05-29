@@ -1,10 +1,13 @@
+"use client";
+import { AnimatePresence } from "framer-motion";
+
 const PageTransition = ({ children }: Readonly<{
     children: React.ReactNode;
   }>) => {
     return (
-        <div>
-            
-        </div>
+        <AnimatePresence>
+            {children}
+        </AnimatePresence>
     );
 }
 
