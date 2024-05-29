@@ -7,10 +7,19 @@ import { CiMenuFries } from "react-icons/ci";
 import { links } from "@/constants";
 
 const MobileNav = () => {
+    const pathname = usePathname()
+
     return (
-        <nav>
-            mobile nav
-        </nav>
+        <Sheet>
+            <SheetTrigger className="flex justify-center items-center">
+                <CiMenuFries className="text-[32px] text-accent" />
+            </SheetTrigger>
+            <SheetContent className="flex flex-col">
+                <div>
+                    
+                </div>
+            </SheetContent>
+        </Sheet>
     );
 }
 
