@@ -6,12 +6,17 @@ const socials = [
     { icon: <FaLinkedin />, link: "/#" }
 ]
 
-const Socials = ({ containerStyles, icons } : {
-    containerStyles: any, icons: any
-}) => {
+const Socials = ({ containerStyles, iconStyles } : 
+    { containerStyles: any, iconStyles: any }) => {
     return (
-        <div>
-            
+        <div className={containerStyles}>
+            {socials.map((item, index) => {
+                return (
+                    <Link key={index} href={item.link} className={iconStyles}>
+                        {item.icon}
+                    </Link>
+                )
+            })}
         </div>
     );
 }
