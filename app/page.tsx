@@ -7,7 +7,7 @@ import { FiDownload } from "react-icons/fi"
 const Home = () => {
   return (
     <section className="h-full">
-      <div className="container mx-auto h-full">
+      <div className="container mx-auto h-full mb-12">
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/** text */}
           <div className="text-center xl:text-left gap-4 order-2 xl:order-none">
@@ -31,7 +31,9 @@ const Home = () => {
               <div className="mb-8 xl:mb-0">
                 <Socials 
                   containerStyles="flex gap-6"
-                  iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all"
+                  iconStyles="w-9 h-9 border border-accent rounded-full flex
+                  justify-center items-center text-accent text-base
+                  hover:bg-accent hover:text-primary hover:transition-all hover:duration-500"
                 />
               </div>
             </div>
@@ -42,9 +44,8 @@ const Home = () => {
             <Photo />
           </div>
         </div>
+        <Stats />
       </div>
-
-      <Stats />
     </section>
   );
 }
