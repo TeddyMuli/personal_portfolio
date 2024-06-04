@@ -2,7 +2,7 @@
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import Link from "next/navigation";
+import Link from "next/link";
 import { CiMenuFries } from "react-icons/ci";
 import { links } from "@/constants";
 
@@ -16,20 +16,20 @@ const MobileNav = () => {
             </SheetTrigger>
             <SheetContent className="flex flex-col">
                 <div className="mt-24 mb-8 text-center">
-                    <a href="/">
+                    <Link href="/">
                         <h1 className="text-4xl">Muli<span className="text-accent">.</span></h1>
-                    </a>
+                    </Link>
                 </div>
                 <nav className="flex flex-col justify-center items-center gap-8">
                     {links.map((link, index) => {
                         return (
-                            <a
+                            <Link
                                 key={index}
                                 href={link.path}
                                 className={`${link.path === pathname && 'text-accent border-b-2 border-accent'} capitalize text-xl hover:text-accent transition-all`}
                             >
                                 {link.name}
-                            </a>
+                            </Link>
                         );
                     })}
                 </nav>
