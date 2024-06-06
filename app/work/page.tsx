@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -21,48 +21,69 @@ import WorkSliderBtns from "@/components/WorkSliderBtns";
 const projects = [
 	{
 		num: "01",
-		category: "frontend",
-		title: "project 1",
-		description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-		stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "JavaScript" }],
-		image: "/assets/work/thumb1.png",
-		live: "",
-		github: ""
+		category: "fullstack",
+		title: "Cable Sizer",
+		description: "Full stack web application that helps electrical engineers size cables and save calculations in projects. Icorporated Mpesa, Card payments and PayPal.",
+		stack: [{ name: "Next Js" }, { name: "Django" }, { name: "Django Rest Framework" }],
+		image: "/assets/work/cable.png",
+		live: "https://cable-sizer.com",
 	},
 	{
 		num: "02",
-		category: "frontend",
-		title: "project 1",
-		description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-		stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "JavaScript" }],
-		image: "/assets/work/thumb1.png",
-		live: "",
-		github: ""
+		category: "Fullstack",
+		title: "DairyLink",
+		description: "Dairy cooperative management application.",
+		stack: [{ name: "Next Js" }, { name: "Supabase" }],
+		image: "/assets/work/cow.png",
+		live: "https://dairylink.jhubafrica.com",
 	},
 	{
 		num: "03",
-		category: "frontend",
-		title: "project 1",
-		description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-		stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "JavaScript" }],
-		image: "/assets/work/thumb1.png",
-		live: "",
-		github: ""
+		category: "fullstack",
+		title: "Threads clone",
+		description: "A threads clone.",
+		stack: [{ name: "Next Js" }, { name: "Tailwind Css" }, { name: "Mongo db" }],
+		image: "/assets/work/threads.png",
+		live: "https://threads-clone-ivory-eight.vercel.app/",
+		github: "https://github.com/TeddyMuli/Threads-clone"
 	},
 	{
 		num: "04",
-		category: "frontend",
-		title: "project 1",
-		description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-		stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "JavaScript" }],
-		image: "/assets/work/thumb1.png",
+		category: "fullstack",
+		title: "CRM web app",
+		description: "A customer relation management web application",
+		stack: [{ name: "Django" }, { name: "MySql" }, { name: "Bootstrap" }],
+		image: "/assets/work/crm.png",
 		live: "",
-		github: ""
-	}
+		github: "https://github.com/TeddyMuli/Django-WebApp"
+	},
+	{
+		num: "05",
+		category: "fullstack",
+		title: "AirBnB clone",
+		description: "An AirBnB clone.",
+		stack: [{ name: "Flask" }, { name: "MySql" }, { name: "SQLAlchemy" }, { name: "Html5" }, { name: "Css3" }, { name: "JavaScript" }],
+		image: "/assets/work/hbnb_logo.png",
+		live: "",
+		github: "https://github.com/TeddyMuli/AirBnB_clone"
+	},
+	{
+		num: "06",
+		category: "systems programming",
+		title: "Simple Shell",
+		description: "A simple linux shell written in C.",
+		stack: [{ name: "C" }],
+		image: "/assets/work/shell.png",
+		live: "",
+		github: "https://github.com/TeddyMuli/simple_shell"
+	},
 ]
 
 const Work = () => {
 	const [project, setProject] = useState(projects[0]);
+	const [isFirst, setIsFirst] = useState(false)
+	const [isLast, setIsLast] = useState(false)
+
 	const handleSlideChange = (swiper: any) => {
 		// get current slide index
 		const currentIndex = swiper.activeIndex;
@@ -70,6 +91,17 @@ const Work = () => {
 		// updating project state on current slide index
 		setProject(projects[currentIndex])
 	}
+
+	useEffect(() => {
+		if (project.num === "01") {
+			setIsFirst(true)
+		} else if (project.num === "06") {
+			setIsLast(true)
+		} else {
+			setIsFirst(false)
+			setIsLast(false)
+		}
+	}, [project.num])
 
 	return (
 		<motion.section
@@ -90,6 +122,9 @@ const Work = () => {
 					<div className="flex flex-col gap-[30px] h-[50%]">
 						<div className="text-8xl leading-none font-extrabold text-transparent text-outline">{project.num}</div>
 						<h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
+							{project.title}
+						</h2>
+						<h2 className="text-[16px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
 							{project.category} project
 						</h2>
 						{/** project description */}
@@ -110,20 +145,23 @@ const Work = () => {
 						{/** buttons */}
 						<div className="flex items-center gap-4">
 							{/** live project button */}
-							<Link href={project.live}>
+							{project.live && (
+							<a target="_blank" rel="noopener noreferrer" href={project.live}>
 								<TooltipProvider delayDuration={100}>
 									<Tooltip>
 										<TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-											<BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
+											<BsArrowUpRight className="text-white text-3xl group-hover:text-accent group-hover:-rotate-45 transition-all" />
 										</TooltipTrigger>
 										<TooltipContent>
 											<p>Live project</p>
 										</TooltipContent>
 									</Tooltip>
 								</TooltipProvider>
-							</Link>
+							</a>
+							)}
 							{/** project github */}
-							<Link href={project.github}>
+							{project.github && (
+							<a target="_blank" href={project.github}>
 								<TooltipProvider delayDuration={100}>
 									<Tooltip>
 										<TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
@@ -134,7 +172,8 @@ const Work = () => {
 										</TooltipContent>
 									</Tooltip>
 								</TooltipProvider>
-							</Link>
+							</a>
+							)}
 						</div>
 					</div>
 				</div>
@@ -148,14 +187,14 @@ const Work = () => {
 						{projects.map((item, index) => {
 							return (
 								<SwiperSlide key={index}>
-									<div className="h-[460px] relative group flex justify-center items-center bg-pink-50/20">
-										<div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
-										<div className="relative w-full h-full">
+									<div className="h-[460px] relative group flex justify-center items-center">
+										<div className="absolute top-0 bottom-0 w-full h-full z-10"></div>
+										<div className="relative">
 											<Image
 												src={item.image}
-												fill
-												className="object-cover"
 												alt="project image"
+												width={460}
+												height={460}
 											/>
 										</div>
 									</div>
@@ -166,7 +205,9 @@ const Work = () => {
 						<WorkSliderBtns
 							containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
 							btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all"
-							
+							isFirst={isFirst}
+							isLast={isLast}
+							iconStyles=""
 						/>
 					</Swiper>
 				</div>

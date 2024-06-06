@@ -1,8 +1,12 @@
+"use client";
+
 import Photo from "@/components/Photo";
 import Socials from "@/components/Socials";
 import Stats from "@/components/Stats";
 import { Button } from "@/components/ui/button";
-import { FiDownload } from "react-icons/fi"
+import Link from "next/link";
+import { FiDownload } from "react-icons/fi";
+import { TypeAnimation } from "react-type-animation"
 
 const Home = () => {
   return (
@@ -11,7 +15,15 @@ const Home = () => {
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/** text */}
           <div className="text-center xl:text-left gap-4 order-2 xl:order-none">
-            <span className="text-xl">Software Engineer</span>
+            <TypeAnimation
+              className="text-xl" 
+              sequence={[
+                'Full Stack Software Engineer '
+              ]}
+              wrapper="span"
+              speed={10}
+              cursor={true}
+            />
             <h1 className="h1 my-4">
               Hi, I'm <div className="mt-2 text-accent">Teddy Muli<span className="text-white">.</span></div>
             </h1>
@@ -20,14 +32,16 @@ const Home = () => {
               I am profecient in various programming languages and technologies
             </p>
             <div className="flex flex-col xl:flex-row items-center gap-8">
-              <Button 
-                variant="outline"
-                size="lg"
-                className="uppercase flex items-center gap-2"
-              >
-                <span>Download CV</span>
-                <FiDownload className="text-xl" />
-              </Button>
+              <a href="/TEDDY MULI CV.pdf" download>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="uppercase flex items-center gap-2"
+                >
+                  <span>Download CV</span>
+                  <FiDownload className="text-xl" />
+                </Button>
+              </a>
               <div className="mb-8 xl:mb-0">
                 <Socials 
                   containerStyles="flex gap-6"

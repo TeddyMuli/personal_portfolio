@@ -33,7 +33,7 @@ const about = {
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
     info: [
         { fieldName: "Name", fieldValue: "Teddy Muli" },
-        { fieldName: "Phone", fieldValue: "(+254) 799 957 459" },
+        { fieldName: "Phone", fieldValue: "+254 799 957 459" },
         { fieldName: "Experience", fieldValue: "2+ Years" },
         { fieldName: "Nationality", fieldValue: "Kenyan" },
         { fieldName: "Email", fieldValue: "tmuli974@gmail.com" },
@@ -45,37 +45,22 @@ const about = {
 const experience = {
 	icon: "/assets/resume/badge.svg",
 	title: "My experience",
-	description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+	description: "Experience in solving real world problems using my technical skills.",
 	items: [
 		{
-			company: 'Cable Sizer',
-			position: "Full Stack Developer",
-			duration: "2024"
+			company: 'Dairy Link',
+			position: "Front End Developer",
+			duration: "May 2024 - Present"
 		},
 		{
 			company: 'Cable Sizer',
 			position: "Full Stack Developer",
-			duration: "2024"
+			duration: "Jan 2024 - Present"
 		},
 		{
-			company: 'Cable Sizer',
+			company: 'CRM web app',
 			position: "Full Stack Developer",
-			duration: "2024"
-		},
-		{
-			company: 'Cable Sizer',
-			position: "Full Stack Developer",
-			duration: "2024"
-		},
-		{
-			company: 'Cable Sizer',
-			position: "Full Stack Developer",
-			duration: "2024"
-		},
-		{
-			company: 'Cable Sizer',
-			position: "Full Stack Developer",
-			duration: "2024"
+			duration: "April 2023 - June 2023"
 		},
 	],
 }
@@ -94,6 +79,11 @@ const education = {
 			institution: 'ALX Africa',
 			degree: "Software Engineering",
 			duration: "2022 - 2024"
+		},
+		{
+			institution: 'Alliance High School',
+			degree: "KCSE",
+			duration: "2018 - 2021"
 		},
 	],
 }

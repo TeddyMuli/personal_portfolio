@@ -5,10 +5,10 @@ import CountUp from "react-countup"
 const year = new Date().getFullYear()
 
 const stats = [
-  { num: year - 2021, text: "Years of experience" },
+  { num: year - 2022, text: "Years of experience" },
   { num: 6, text: "Projects completed" },
-  { num: 8, text: "Technologies mastered" },
-  { num:  500, text: "Code commits" },
+  { num: 13, text: "Technologies mastered" },
+  { num:  1000, text: "Code commits" },
 ]
 const Stats = () => {
   return (
