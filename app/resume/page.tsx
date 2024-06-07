@@ -30,7 +30,7 @@ import { motion } from "framer-motion";
 
 const about = {
     title: 'About me',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    description: 'I am a seasoned full stack developer with experience in various frontend and backend languages and frameworks. I have a passion for building software and solving problems using my skills.',
     info: [
         { fieldName: "Name", fieldValue: "Teddy Muli" },
         { fieldName: "Phone", fieldValue: "+254 799 957 459" },
