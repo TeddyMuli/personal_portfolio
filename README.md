@@ -1,4 +1,4 @@
-<img src="https://imgur.com/a/vt2kpPY" alt="screenshot">
+<img src="https://github.com/TeddyMuli/personal_portfolio/blob/main/public/assets/readme.jpg" alt="screenshot">
 # Personal Portfolio
 This is my personal portfolio, built with Next JS, Tailwind Css for styling and Framer Motion for animations.
 
