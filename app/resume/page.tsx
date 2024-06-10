@@ -68,7 +68,7 @@ const experience = {
 const education = {
 	icon: "/assets/resume/cap.svg",
 	title: "My Education",
-	description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+	description: "",
 	items: [
 		{
 			institution: 'JKUAT',
@@ -90,7 +90,7 @@ const education = {
 
 const skills = {
 	title: "My skills",
-	description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+	description: "",
 	skillList: [
 		{ icon: <SiC />, name: "C" },
 		{ icon: <SiCplusplus />, name: "c++" },

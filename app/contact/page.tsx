@@ -14,7 +14,9 @@ import {
 
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaCheck } from "react-icons/fa"
 import { title } from "process";
-import { GoCopy } from "react-icons/go"
+import { GoCopy } from "react-icons/go";
+
+import { sendEmail } from "@/utils/email";
 
 const info = [
   { icon: <FaPhoneAlt />, title: "Phone", description: "+254 799 957 459" },
@@ -28,6 +30,21 @@ import { useState } from "react";
 
 const Contact = () => {
   const [copiedItems, setCopiedItems] = useState<{ [key: string]: boolean }>({});
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    service: "",
+    text: ""
+  })
+
+  const handleFormChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const copyToClipBooard = (title: string, text: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -39,6 +56,29 @@ const Contact = () => {
       console.error("Failed to copy text: ", err);
     })
   };
+
+  const handleSubmit = async(event: any) => {
+    event.preventDefault();
+
+    const emailDetails = {
+      to: "tmuli974@gmail.com",
+      from: formData.email,
+      subject: formData.service,
+      message: `Hi my names are ${formData.firstname} ${formData.lastname}.
+      Phone number: ${formData.phone},
+      Message: ${formData.text}
+      `,
+    };
+
+    try {
+      await sendEmail(emailDetails);
+      console.log('Email sent successfully!');
+      // Perform any additional actions after successful email sending
+    } catch (error) {
+      console.error('Error sending email:', error);
+      // Handle error case
+    }
+  }
   
   return (
     <motion.section
@@ -57,13 +97,13 @@ const Contact = () => {
               <h3 className="text-4xl text-accent text-center">Let's work together</h3>
               <p className="text-md text-white/70 text-center">Kindly enter your contact information below.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input type="firstsname" placeholder="Firstname" />
-                <Input type="lastname" placeholder="Lastname" />
-                <Input type="email" placeholder="Email  address" />
-                <Input type="phone" placeholder="Phone number" />
+                <Input type="text" name="firstname" placeholder="Firstname" required value={formData.firstname} onChange={(e) => handleFormChange(e)} />
+                <Input type="text" name="lastname" placeholder="Lastname" required value={formData.lastname} onChange={(e) => handleFormChange(e)}/>
+                <Input type="email" name="email" placeholder="Email  address" required value={formData.email} onChange={(e) => handleFormChange(e)}/>
+                <Input type="phone" name="phone" placeholder="Phone number" required value={formData.phone} onChange={(e) => handleFormChange(e)}/>
               </div>
               {/** select */}
-              <Select>
+              <Select defaultValue={formData.service} required onValueChange={value => setFormData({ ...formData, service: value })}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
@@ -78,9 +118,9 @@ const Contact = () => {
               </Select>
 
               {/** text area */}
-              <Textarea className="h-[200px]" placeholder="Type your message" />
+              <Textarea className="h-[200px]" name="text" required value={formData.text} onChange={(e) => handleFormChange(e)} placeholder="Type your message" />
               <div className="flex justify-center items-center">
-                <Button size="md" className="max-w-40">Send message</Button>
+                <Button size="md" className="max-w-40" onClick={handleSubmit}>Send message</Button>
               </div>
             </form>
           </div>
