@@ -33,4 +33,5 @@ AirBnB Clone -
 Simple Shell - 
 
 ## Licencing
-
+MIT License
+https://github.com/TeddyMuli/personal_portfolio/blob/main/LICENSE
