@@ -1,3 +1,4 @@
+<img src="https://drive.google.com/file/d/1-CxYebHswvnT4LddZkiMivvmwm1I53vf/view?usp=sharing" alt="screenshot">
 # Personal Portfolio
 This is my personal portfolio, built with Next JS, Tailwind Css for styling and Framer Motion for animations.
 
@@ -26,3 +27,10 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Related Projects
+AirBnB Clone - 
+Simple Shell - 
+
+## Licencing
+
