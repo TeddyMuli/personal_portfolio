@@ -13,10 +13,14 @@ import {
 } from "@/components/ui/select";
 
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaCheck } from "react-icons/fa"
-import { title } from "process";
 import { GoCopy } from "react-icons/go";
+import { motion } from "framer-motion";
+import { SelectGroup } from "@radix-ui/react-select";
+import { useState } from "react";
 
-import { sendEmail } from "@/utils/email";
+import { toast } from "react-toastify";
+import Image from "next/image";
+import { InfinitySpin } from "react-loader-spinner";
 
 const info = [
   { icon: <FaPhoneAlt />, title: "Phone", description: "+254 799 957 459" },
@@ -24,20 +28,31 @@ const info = [
   { icon: <FaMapMarkerAlt />, title: "Address", description: "Nairobi" },
 ]
 
-import { motion } from "framer-motion";
-import { SelectGroup } from "@radix-ui/react-select";
-import { useState } from "react";
-
 const Contact = () => {
   const [copiedItems, setCopiedItems] = useState<{ [key: string]: boolean }>({});
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone: string;
+    service?: string;
+    text?: string;
+  }>({
     firstname: "",
     lastname: "",
     email: "",
     phone: "",
     service: "",
     text: ""
+  });
+  
+  const [validationErrors, setValidationErrors] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
   })
+  const [loading, setLoading] = useState(false)
 
   const handleFormChange = (e: any) => {
     setFormData({
@@ -57,29 +72,49 @@ const Contact = () => {
     })
   };
 
-  const handleSubmit = async(event: any) => {
-    event.preventDefault();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    let hasErrors = false;
+    let newValidationErrors = { ...validationErrors };
+    let key: keyof typeof formData;
 
-    const emailDetails = {
-      to: "tmuli974@gmail.com",
-      from: formData.email,
-      subject: formData.service,
-      message: `Hi my names are ${formData.firstname} ${formData.lastname}.
-      Phone number: ${formData.phone},
-      Message: ${formData.text}
-      `,
-    };
-
-    try {
-      await sendEmail(emailDetails);
-      console.log('Email sent successfully!');
-      // Perform any additional actions after successful email sending
-    } catch (error) {
-      console.error('Error sending email:', error);
-      // Handle error case
+    for (key in formData) {
+      if (formData[key] === "") {
+        newValidationErrors[key] = "This field is required";
+        hasErrors = true;
+      } else {
+        newValidationErrors[key] = "";
+      }
     }
-  }
+
+    setValidationErrors(newValidationErrors);
+
+    if (hasErrors) return;
+    setLoading(true);
+    const response = await fetch('/api/sendEmail', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+    setLoading(false);
   
+    if (response.ok) {
+      toast.success("Email sent successfully!");
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        service: "",
+        text: ""
+      });
+    } else {
+      toast.error("Email not sent!")
+  };
+}
+
   return (
     <motion.section
       initial={{opacity: 0}}
@@ -89,7 +124,7 @@ const Contact = () => {
       }}
       className="py-6"
     >
-      <div className="container max-auto">
+      <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row gap-[30px]">
           {/** form */}
           <div className="xl:h-[54%] order-2 xl:order-none">
@@ -97,10 +132,22 @@ const Contact = () => {
               <h3 className="text-4xl text-accent text-center">Let's work together</h3>
               <p className="text-md text-white/70 text-center">Kindly enter your contact information below.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input type="text" name="firstname" placeholder="Firstname" required value={formData.firstname} onChange={(e) => handleFormChange(e)} />
-                <Input type="text" name="lastname" placeholder="Lastname" required value={formData.lastname} onChange={(e) => handleFormChange(e)}/>
-                <Input type="email" name="email" placeholder="Email  address" required value={formData.email} onChange={(e) => handleFormChange(e)}/>
-                <Input type="phone" name="phone" placeholder="Phone number" required value={formData.phone} onChange={(e) => handleFormChange(e)}/>
+                <div>
+                  <Input type="text" name="firstname" placeholder="Firstname" required value={formData.firstname} onChange={(e) => handleFormChange(e)} />
+                  {validationErrors.firstname && <p className="text-red-600">{validationErrors.firstname}</p>}
+                </div>
+                <div>
+                  <Input type="text" name="lastname" placeholder="Lastname" required value={formData.lastname} onChange={(e) => handleFormChange(e)}/>
+                  {validationErrors.lastname && <p className="text-red-600">{validationErrors.lastname}</p>}
+                </div>
+                <div>
+                  <Input type="email" name="email" placeholder="Email  address" required value={formData.email} onChange={(e) => handleFormChange(e)}/>
+                  {validationErrors.email && <p className="text-red-600">{validationErrors.email}</p>}
+                </div>
+                <div>
+                  <Input type="phone" name="phone" placeholder="Phone number" required value={formData.phone} onChange={(e) => handleFormChange(e)}/>
+                  {validationErrors.phone && <p className="text-red-600">{validationErrors.phone}</p>}
+                </div>
               </div>
               {/** select */}
               <Select defaultValue={formData.service} required onValueChange={value => setFormData({ ...formData, service: value })}>
@@ -110,9 +157,9 @@ const Contact = () => {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Select a service</SelectLabel>
-                    <SelectItem value="est">Web Development</SelectItem>
-                    <SelectItem value="cst">UI/UX Design</SelectItem>
-                    <SelectItem value="mst">Logo Design</SelectItem>
+                    <SelectItem value="web">Web Development</SelectItem>
+                    <SelectItem value="ui/ux">UI/UX Design</SelectItem>
+                    <SelectItem value="logo">Logo Design</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -120,7 +167,21 @@ const Contact = () => {
               {/** text area */}
               <Textarea className="h-[200px]" name="text" required value={formData.text} onChange={(e) => handleFormChange(e)} placeholder="Type your message" />
               <div className="flex justify-center items-center">
-                <Button size="md" className="max-w-40" onClick={handleSubmit}>Send message</Button>
+                {!loading ? (
+                  <Button 
+                    size="md" className="max-w-40" 
+                    onClick={handleSubmit}
+                  >
+                      Send message
+                  </Button>
+                ) : (
+                  <InfinitySpin
+                    visible={true}
+                    width="200"
+                    color="#4fa94d"
+                    ariaLabel="infinity-spin-loading"
+                  />
+                )}
               </div>
             </form>
           </div>
@@ -130,7 +191,7 @@ const Contact = () => {
               {info.map((item, index) => {
                 return (
                   <li key={index} className="flex items-center gap-6">
-                    <div className="w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] text-accent rounded-md flex items-center justify-center">
+                    <div className="w-[44px] h-[44] lg:w-[72px] lg:h-[72px] p-2 bg-[#27272c] text-accent rounded-md flex items-center justify-center">
                       <div className="text-[28px]">{item.icon}</div>
                     </div>
                     <div className="flex-1">
@@ -142,7 +203,7 @@ const Contact = () => {
                         <>
                         {item.title !== "Address" && (
                           <>
-                            <div className="text-white/60 hover:animate-bounce cursor-pointer" onClick={() => copyToClipBooard(item.title, item.description)}><GoCopy /></div>
+                            <div className="text-white/60 cursor-pointer" onClick={() => copyToClipBooard(item.title, item.description)}><GoCopy /></div>
                             <div className="absolute opacity-0 group-hover:opacity-100 text-xs transition-all duration-500">Copy to clipboard</div>
                           </>
                         )}
