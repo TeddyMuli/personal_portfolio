@@ -80,17 +80,12 @@ const education = {
 			degree: "Software Engineering",
 			duration: "2022 - 2024"
 		},
-		{
-			institution: 'Alliance High School',
-			degree: "KCSE",
-			duration: "2018 - 2021"
-		},
 	],
 }
 
 const skills = {
 	title: "My skills",
-	description: "",
+	description: "Programming languages and technologies mastered.",
 	skillList: [
 		{ icon: <SiC />, name: "C" },
 		{ icon: <SiCplusplus />, name: "c++" },
