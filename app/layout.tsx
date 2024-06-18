@@ -31,6 +31,7 @@ export default function RootLayout({
         <PageTransition>
           <ToastProvider>
             {children}
+            <Analytics />
           </ToastProvider>
         </PageTransition>
       </body>
