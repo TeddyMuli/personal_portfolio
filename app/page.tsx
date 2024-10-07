@@ -32,7 +32,7 @@ const Home = () => {
               I am profecient in various programming languages and technologies
             </p>
             <div className="flex flex-col xl:flex-row items-center gap-8">
-              <a href="/TEDDY MULI CV.pdf" download>
+              <a href="https://docs.google.com/document/d/1IWgQKpPoQ9s950hgpe-4rvjnD1bZkrDO_1wsjguPKXk/edit?usp=sharing" download>
                 <Button 
                   variant="outline"
                   size="lg"
