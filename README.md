@@ -1,6 +1,6 @@
-<img src="https://github.com/TeddyMuli/personal_portfolio/blob/main/public/assets/readme.jpg" alt="screenshot">
 # Personal Portfolio
 This is my personal portfolio, built with Next JS, Tailwind Css for styling and Framer Motion for animations.
+<img src="https://github.com/TeddyMuli/personal_portfolio/blob/main/public/assets/readme.jpg" alt="screenshot">
 
 ## Live Project
 https://teddymuli.vercel.app
